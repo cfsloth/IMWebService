@@ -1,6 +1,6 @@
 <?php
 
-include("../index.php");
+include("../databaseAcess.php");
 
 $database = new Database();
 
