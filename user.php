@@ -1,6 +1,7 @@
 <?php
    include("databaseAcess.php");
 
+   /*GET REQUEST */
    if(isset($_GET['email'])){
         $database = new Database();
         $connection = $database->openConection();
@@ -13,4 +14,19 @@
             echo json_encode($array_to_json);
         }
    }
+   
+   /*POST REQUEST */
+   if(isset($_POST['email']) && isset($_POST['firstName'])
+            && isset($_POST['lastName']) && isset($_POST['password'])){
+        $database = new Database();
+        $connection = $database->openConection();
+        $data = $database->setData($connection,
+               sprintf("INSERT INTO USERS(firstName,lastName,password,email)"
+                       . " VALUES('%s','%s','%s','%s')",$_POST['firstName'],$_POST['lastName']
+               ,$_POST['password'],$_POST['email']));
+        if($data == 1){
+            echo "SUCCESS";
+        }
+    }
+       
 ?>
