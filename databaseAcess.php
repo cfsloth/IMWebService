@@ -1,12 +1,18 @@
 <?php
     class Database{
-            /**
+        /**
              * 
              * @return type dbhandle
              */
             function __construct() {
-                return mysqli_connect("localhost","root","","IM") 
+               
+            }
+            
+            function openConection(){
+                $con = mysqli_connect("localhost","root","") 
                         or die("Could not to mysqlDatabase");
+                mysqli_select_db($con,"IM");
+                return $con;
             }
             
             /**
