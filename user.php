@@ -1,6 +1,8 @@
 <?php
    include("databaseAcess.php");
-
+   
+   $method = $_SERVER['REQUEST_METHOD'];
+   
    /*GET REQUEST */
    if(isset($_GET['email'])){
         $database = new Database();
@@ -28,5 +30,12 @@
             echo "SUCCESS";
         }
     }
+    
+   if('PUT' == $method){
+       parse_str(file_get_contents('php://input'), $_PUT);
+       var_dump($_PUT);
+       trim($_PUT, "/n");
+       
+   } 
        
 ?>
