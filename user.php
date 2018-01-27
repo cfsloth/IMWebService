@@ -34,8 +34,10 @@
    if('PUT' == $method){
        parse_str(file_get_contents('php://input'), $_PUT);
        var_dump($_PUT);
-       trim($_PUT, "/n");
-       
    } 
+   
+   if('DELETE' == $method){
+       
+   }
        
 ?>
