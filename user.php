@@ -10,11 +10,8 @@
         $data = $database->getData($connection, 
                sprintf("SELECT firstName,lastName,password,usertypes_id_type FROM users WHERE email = '%s'"
                        , $_GET['email']));
-        if(!isset($data[0]["firstName"])){ //To make sure only pass one row
-            $array_to_json = array('firstName'=>$data['firstName']
-                    ,'lastName'=>$data['lastName'],'password'=>$data['password'],
-                'userTypes_id_type'=>$data['usertypes_id_type']);
-            echo json_encode($array_to_json);
+        if(!isset($data[1]["firstName"])){ //To make sure only pass one row
+            echo json_encode($data);
         }
    }
    
@@ -31,12 +28,14 @@
             echo "SUCCESS";
         }
     }
-    
+   
+   /* */
    if('PUT' == $method){
        parse_str(file_get_contents('php://input'), $_PUT);
        var_dump($_PUT);
    } 
    
+   /* */
    if('DELETE' == $method){
        
    }

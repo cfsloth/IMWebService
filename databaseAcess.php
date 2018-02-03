@@ -22,11 +22,15 @@
              * @return type associtiveArray with results
              */
             function getData($dbhandle,$query){
+               $return = array();
                $result = mysqli_query($dbhandle,$query);
                if(empty($result)){
                     die("Could not return any data");
                }
-               return mysqli_fetch_array($result); 
+               while($row = mysqli_fetch_array($result)){
+                   array_push($return,$row);
+               }
+               return $return; 
             }
             /**
              * 

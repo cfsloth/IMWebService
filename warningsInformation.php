@@ -12,16 +12,17 @@ include("databaseAcess.php");
    
    /*GET REQUEST */
    if(isset($_GET['administrator_email'])){
+        $json = "";
         $database = new Database();
         $connection = $database->openConection();
         $data = $database->getData($connection, 
-               sprintf(""
+               sprintf("SELECT c.information_warning_id, b.email as send_user, "
+                       . "c.description, c.severity, c.subject "
+                       . "FROM users a, users b, information_warnings c "
+                       . "WHERE a.id_user = c.user_receiving_id "
+                       . "AND c.user_sending_id = b.id_user "
+                       . "AND a.email = '%s'"
                        , $_GET['administrator_email']));
-        if(!isset($data[0]["firstName"])){ //To make sure only pass one row
-            $array_to_json = array(''=>$data['']
-                    ,''=>$data[''],''=>$data[''],
-                ''=>$data['']);
-            echo json_encode($array_to_json);
-        }
+        echo json_encode($data);
    }
     ?>
