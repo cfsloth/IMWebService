@@ -25,4 +25,9 @@ include("databaseAcess.php");
                        , $_GET['administrator_email']));
         echo json_encode($data);
    }
+   
+   if(isset($_POST['send_user_email']) && isset($_POST['received_user_id']) 
+           && isset($_POST['severity']) && POST['description']){
+       
+   }
     ?>

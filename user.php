@@ -11,7 +11,9 @@
                sprintf("SELECT firstName,lastName,password,usertypes_id_type FROM users WHERE email = '%s'"
                        , $_GET['email']));
         if(!isset($data[1]["firstName"])){ //To make sure only pass one row
-            echo json_encode($data);
+        $json = array("firstName"=>$data[0]['firstName'],"lastName"=>$data[0]['lastName'],
+            "password"=>$data[0]['password'],"usertypes_id_type"=>$data[0]['usertypes_id_type']);
+        echo json_encode($json);
         }
    }
    
