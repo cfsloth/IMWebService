@@ -12,7 +12,7 @@
                        , $_GET['email']));
         if(!isset($data[1]["firstName"])){ //To make sure only pass one row
         $json = array("firstName"=>$data[0]['firstName'],"lastName"=>$data[0]['lastName'],
-            "password"=>$data[0]['password'],"usertypes_id_type"=>$data[0]['usertypes_id_type']);
+            "password"=>$data[0]['password'],"userTypes_id_type"=>$data[0]['usertypes_id_type']);
         echo json_encode($json);
         }
    }
