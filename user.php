@@ -8,11 +8,14 @@
         $database = new Database();
         $connection = $database->openConection();
         $data = $database->getData($connection, 
-               sprintf("SELECT firstName,lastName,password,usertypes_id_type FROM users WHERE email = '%s'"
+               sprintf("SELECT firstName,lastName,password,usertypes_id_type,"
+                       . "department,position,email FROM users WHERE email = '%s'"
                        , $_GET['email']));
         if(!isset($data[1]["firstName"])){ //To make sure only pass one row
         $json = array("firstName"=>$data[0]['firstName'],"lastName"=>$data[0]['lastName'],
-            "password"=>$data[0]['password'],"userTypes_id_type"=>$data[0]['usertypes_id_type']);
+            "password"=>$data[0]['password'],"userTypes_id_type"=>$data[0]['usertypes_id_type'],
+            "department"=>$data[0]['department'],"position"=>$data[0]['position'],
+            "email"=>$data[0]['email']);
         echo json_encode($json);
         }
    }
@@ -33,8 +36,16 @@
    
    /* */
    if('PUT' == $method){
-       parse_str(file_get_contents('php://input'), $_PUT);
-       var_dump($_PUT);
+        parse_str(file_get_contents('php://input'), $_PUT);
+        echo $_PUT['email'];
+        $database = new Database();
+        $connection = $database->openConection();
+        $data = $database->setData($connection, 
+                sprintf("UPDATE users SET users.password = '%s' WHERE users.email = '%s'"
+                        ,$_PUT['password'],$_PUT['email']));
+       if($data == 1){
+           echo "SUCESS";
+       }
    } 
    
    /* */
