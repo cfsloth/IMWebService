@@ -11,15 +11,16 @@
         $user->getUserByEmail($_GET['email']);
    }
    
-   /*POST - creating a user */
-   if(isset($_POST['email']) && isset($_POST['firstName'])
-           && isset($_POST['lastName']) && isset($_POST['password'])){
-        $user =  new UserClass();
-        $user->createUser($_POST['firstName'],$_POST['lastName'],$_POST['password'],$POST['email']);
-           }
+    /*Post request done */
+    if('POST' == $method){
+       $json = file_get_contents('php://input');
+       $user_info = json_decode($json,true);
+       $user = new UserClass();
+       $user->createUser($user_info);
+    }
    
-   /* */
-   if('PUT' == $method){
+    /*PUT request done */
+    if('PUT' == $method){
         $json = file_get_contents('php://input');
         $user_info = json_decode($json,true);
         //TODO: need to choose the way of updating

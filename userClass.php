@@ -23,26 +23,29 @@ class UserClass {
         $connection = $database->openConection();
         $data = $database->getData($connection, 
                sprintf("SELECT firstName,lastName,password,usertypes_id_type,"
-                       . "department,position,email FROM users WHERE email = '%s'"
-                       , $email ));
+                       . "department,position,email,deleted FROM users WHERE email = '%s'"
+                       , $email));
         if(!isset($data[1]["firstName"])){ //To make sure only pass one row
         $json = array("firstName"=>$data[0]['firstName'],"lastName"=>$data[0]['lastName'],
             "password"=>$data[0]['password'],"userTypes_id_type"=>$data[0]['usertypes_id_type'],
             "department"=>$data[0]['department'],"position"=>$data[0]['position'],
-            "email"=>$data[0]['email']);
+            "email"=>$data[0]['email'],"deleted"=>$data[0]['deleted']);
         echo json_encode($json);
         }
     }
     
-    function createUser($first_name,$last_name,$password,$email){
+    function createUser($user_info){
         $database = new Database();
         $connection = $database->openConection();
         $data = $database->setData($connection,
-               sprintf("INSERT INTO USERS(firstName,lastName,password,email)"
-                       . " VALUES('%s','%s','%s','%s')",$first_name,$last_name
-               ,$password,$email));
+               sprintf("INSERT INTO USERS(firstName,lastName,password,email,"
+                       . "userTypes_id_type,department,position)"
+                       . " VALUES('%s','%s','%s','%s','%s','%s','%s')",$user_info['firstName']
+                       ,$user_info['lastName'],$user_info['password']
+                       ,$user_info['email'],$user_info['userTypes_id_type']
+                       ,$user_info['department'],$user_info['position']));
         if($data == 1){
-            echo "SUCCESS";
+            echo "SUCESS";
         }
     }
     
