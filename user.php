@@ -48,9 +48,19 @@
        }
    } 
    
-   /* */
+   /*Warning: It is done an delele call from HTTP protocol, but the user will only be disabled*/
    if('DELETE' == $method){
-       
+        parse_str(file_get_contents('php://input'),$_DEL);
+        $email = json_decode($_DEL['email'],true); //Here in email is the mail to del
+        $database = new Database();
+        $connection = $database->openConection();
+        $data = $database->setData($connection, 
+                sprintf("UPDATE users SET users.deleted = 1 WHERE users.email = '%s'",$email["email"]));
+        //echo $_DEL['email'];
+        if($data == 1){
+            echo "SUCESS";
+        }
+        echo "Hello World!";
    }
        
 ?>
