@@ -31,21 +31,19 @@ include("databaseAcess.php");
        
    }
    
-     /*Warning: It is done an delete call from HTTP protocol*/
+   /*Warning: It is done an delete call from HTTP protocol*/
    if('DELETE' == $method){
-        parse_str(file_get_contents('php://input'),$_DEL);
-        $email = json_decode($_DEL['id'],true); 
+        $json = file_get_contents('php://input');
+        $id = json_decode($json,true);
         $database = new Database();
         $connection = $database->openConection();
         $data = $database->setData($connection, 
                 sprintf("DELETE FROM information_warnings "
                         . "WHERE information_warnings.information_warning_id = '%s'"
                         ,$id["id"]));
-        //echo $_DEL['email'];
         if($data == 1){
             echo "SUCESS";
         }
-        echo "Hello World!";
    }
    
 ?>

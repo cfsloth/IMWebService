@@ -36,13 +36,14 @@
    
    /* */
    if('PUT' == $method){
-        parse_str(file_get_contents('php://input'), $_PUT);
-        echo $_PUT['email'];
+        $json = file_get_contents('php://input');
+        $user_info = json_decode($json,true);
         $database = new Database();
         $connection = $database->openConection();
+        //Update password
         $data = $database->setData($connection, 
                 sprintf("UPDATE users SET users.password = '%s' WHERE users.email = '%s'"
-                        ,$_PUT['password'],$_PUT['email']));
+                        ,$user_info['password'],$user_info['email']));
        if($data == 1){
            echo "SUCESS";
        }
@@ -50,17 +51,14 @@
    
    /*Warning: It is done an delele call from HTTP protocol, but the user will only be disabled*/
    if('DELETE' == $method){
-        parse_str(file_get_contents('php://input'),$_DEL);
-        $email = json_decode($_DEL['email'],true); //Here in email is the mail to del
+        $json = file_get_contents('php://input');
+        $user_info = json_decode($json,true);
         $database = new Database();
         $connection = $database->openConection();
         $data = $database->setData($connection, 
-                sprintf("UPDATE users SET users.deleted = 1 WHERE users.email = '%s'",$email["email"]));
-        //echo $_DEL['email'];
+                sprintf("UPDATE users SET users.deleted = 1 WHERE users.email = '%s'",$user_info["email"]));
         if($data == 1){
             echo "SUCESS";
         }
-        echo "Hello World!";
    }
-       
 ?>
