@@ -1,7 +1,7 @@
 <?php
-//Need to put this in classes 
-   include("databaseAcess.php");
-   include("userClass.php");
+   //Need to put this in classes 
+   include("databaseAcess/databaseAcess.php");
+   include("databaseAcess/userClass.php");
    
    $method = $_SERVER['REQUEST_METHOD'];
    

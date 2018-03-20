@@ -1,6 +1,6 @@
 <?php
-include("databaseAcess.php");
-include("warningsClass.php");
+include("../databaseAcess/databaseAcess.php");
+include("../databaseAcess/warningsClass.php");
 
    $method = $_SERVER['REQUEST_METHOD'];
    
@@ -10,8 +10,7 @@ include("warningsClass.php");
        $warnings->getWarningByAdministratorEmail($_GET['administrator_email']);
    }
    
-   if(isset($_POST['send_user_email']) && isset($_POST['received_user_id']) 
-           && isset($_POST['severity']) && POST['description']){
+   if('POST' == $method){
        
    }
    
