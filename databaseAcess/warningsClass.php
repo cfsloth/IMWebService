@@ -31,7 +31,17 @@ class WarningsClass {
         echo json_encode($data);
     }
     
-    function addWarning($warning){
+    function getTheAdminWithLessWarnings(){
+        $database = new Database();
+        $connection = $database->openConection();
+        $data = $database->getData($connection, 
+                sprintf("SELECT information_warnings.user_receiving_id FROM information_warnings,"
+                . "users WHERE information_warnings.user_receiving_id = users.id_user "
+                . "AND users.userTypes_id_type = 1 GROUP BY user_receiving_id DESC LIMIT 1"));
+        echo json_encode(array('user_receiving_id'=>$data[0]['user_receiving_id']));
+    }
+    
+    function postWarning($warning){
         $database = new Database();
         $connection = $database->openConection();
         $data = $database->setData($connection, 

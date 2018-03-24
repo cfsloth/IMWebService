@@ -5,9 +5,16 @@
    $method = $_SERVER['REQUEST_METHOD'];
    
    /*GET REQUEST */
-   if(isset($_GET['administrator_email'])){
-       $warnings = new WarningsClass();
-       $warnings->getWarningByAdministratorEmail($_GET['administrator_email']);
+   if('GET' == $method){
+        $warnings = new WarningsClass();
+        switch($_SERVER['QUERY_STRING']){
+            case 'administrator_email':
+                $warnings->getWarningByAdministratorEmail($_GET['administrator_email']);
+                break;
+            case 'next_administrator':
+                $warnings->getTheAdminWithLessWarnings();
+                break;
+        }
    }
    
    //Post method done
@@ -15,7 +22,7 @@
        $json = file_get_contents('php://input');
        $warning_info = json_decode($json,true);
        $warnings = new WarningsClass();
-       $warnings->addWarning($warning_info);
+       $warnings->postWarning($warning_info);
    }
    
    /*Warning: It is done an delete call from HTTP protocol*/

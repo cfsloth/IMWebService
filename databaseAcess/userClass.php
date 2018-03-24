@@ -22,11 +22,11 @@ class UserClass {
         $database = new Database();
         $connection = $database->openConection();
         $data = $database->getData($connection, 
-               sprintf("SELECT firstName,lastName,password,usertypes_id_type,"
+               sprintf("SELECT id_user,firstName,lastName,password,usertypes_id_type,"
                        . "department,position,email,deleted FROM users WHERE email = '%s'"
                        , $email));
         if(!isset($data[1]["firstName"])){ //To make sure only pass one row
-        $json = array("firstName"=>$data[0]['firstName'],"lastName"=>$data[0]['lastName'],
+        $json = array("id_user"=>$data[0]['id_user'],"firstName"=>$data[0]['firstName'],"lastName"=>$data[0]['lastName'],
             "password"=>$data[0]['password'],"userTypes_id_type"=>$data[0]['usertypes_id_type'],
             "department"=>$data[0]['department'],"position"=>$data[0]['position'],
             "email"=>$data[0]['email'],"deleted"=>$data[0]['deleted']);
