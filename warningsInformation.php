@@ -1,8 +1,7 @@
 <?php
     include("databaseAcess/databaseAcess.php");
     include("databaseAcess/warningsClass.php");
-   
-
+    
    $method = $_SERVER['REQUEST_METHOD'];
    
    /*GET REQUEST */
