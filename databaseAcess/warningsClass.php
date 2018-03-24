@@ -30,6 +30,20 @@ class WarningsClass {
                        , $administrator_email));
         echo json_encode($data);
     }
+    
+    function addWarning($warning){
+        $database = new Database();
+        $connection = $database->openConection();
+        $data = $database->setData($connection, 
+                sprintf("INSERT INTO information_warnings(information_warning_id,"
+                        . "user_sending_id,user_receiving_id,description,severity,"
+                        . "subject) VALUES (NULL,'%d','%d','%s','%s','%s')",
+                        $warning['user_sending_id'],$warning['user_receiving_id'],
+                        $warning['description'],$warning['severity'],$warning['subject']));
+        if($data == 1){
+            echo "SUCESS";
+        }
+    }
  
     function deleteWarningById($id){
         $database = new Database();

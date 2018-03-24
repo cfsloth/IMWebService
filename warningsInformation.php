@@ -1,6 +1,7 @@
 <?php
-include("../databaseAcess/databaseAcess.php");
-include("../databaseAcess/warningsClass.php");
+    include("databaseAcess/databaseAcess.php");
+    include("databaseAcess/warningsClass.php");
+   
 
    $method = $_SERVER['REQUEST_METHOD'];
    
@@ -10,8 +11,12 @@ include("../databaseAcess/warningsClass.php");
        $warnings->getWarningByAdministratorEmail($_GET['administrator_email']);
    }
    
+   //Post method done
    if('POST' == $method){
-       
+       $json = file_get_contents('php://input');
+       $warning_info = json_decode($json,true);
+       $warnings = new WarningsClass();
+       $warnings->addWarning($warning_info);
    }
    
    /*Warning: It is done an delete call from HTTP protocol*/
