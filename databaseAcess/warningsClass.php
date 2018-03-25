@@ -34,11 +34,19 @@ class WarningsClass {
     function getTheAdminWithLessWarnings(){
         $database = new Database();
         $connection = $database->openConection();
-        $data = $database->getData($connection, 
-                sprintf("SELECT information_warnings.user_receiving_id FROM information_warnings,"
-                . "users WHERE information_warnings.user_receiving_id = users.id_user "
-                . "AND users.userTypes_id_type = 1 GROUP BY user_receiving_id DESC LIMIT 1"));
-        echo json_encode(array('user_receiving_id'=>$data[0]['user_receiving_id']));
+        //Gets admins that didn't receive requests
+        $data = $database->getData($connection,"SELECT DISTINCT id_user FROM users,information_warnings "
+                        . "WHERE users.id_user != information_warnings.user_receiving_id "
+                        . "AND users.userTypes_id_type = 1 LIMIT 1");
+        if(isset($data[0])){
+            echo json_encode(array('user_receiving_id'=>$data[0]['id_user']));
+        }else{
+            //Gets admin with less requests
+            $data = $database->getData($connection,"SELECT information_warnings.user_receiving_id "
+                    . "FROM information_warnings,users WHERE information_warnings.user_receiving_id = users.id_user "
+                    . "AND users.userTypes_id_type = 1 GROUP BY user_receiving_id LIMIT 1");
+            echo json_encode(array('user_receiving_id'=>$data[0]['user_receiving_id']));
+        }
     }
     
     function postWarning($warning){
