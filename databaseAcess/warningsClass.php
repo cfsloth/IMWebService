@@ -10,7 +10,7 @@
  * Description of warningsClass
  *
  * @author Claudio
- */
+ */ 
 class WarningsClass {
     
     function __construct(){
@@ -21,8 +21,8 @@ class WarningsClass {
         $database = new Database();
         $connection = $database->openConection();
         $data = $database->getData($connection, 
-               sprintf("SELECT c.information_warning_id, b.email as send_user, "
-                       . "c.description, c.severity, c.subject "
+               sprintf("SELECT c.information_warning_id, b.email as user_sending_email, "
+                       . "c.description, c.severity, c.subject, c.date "
                        . "FROM users a, users b, information_warnings c "
                        . "WHERE a.id_user = c.user_receiving_id "
                        . "AND c.user_sending_id = b.id_user "
