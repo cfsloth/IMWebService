@@ -26,8 +26,7 @@ class WarningsClass {
                        . "FROM users a, users b, information_warnings c "
                        . "WHERE a.id_user = c.user_receiving_id "
                        . "AND c.user_sending_id = b.id_user "
-                       . "AND a.email = '%s'"
-                       , $administrator_email));
+                       . "AND a.email = '%s'",$administrator_email));
         echo json_encode($data);
     }
     
