@@ -21,7 +21,7 @@ class WarningsClass {
         $database = new Database();
         $connection = $database->openConection();
         $data = $database->getData($connection, 
-               sprintf("SELECT c.information_warning_id, b.email as user_sending_email, "
+               sprintf("SELECT c.information_warning_id as warnindId, b.email as userEmailSend, "
                        . "c.description, c.severity, c.subject, c.date "
                        . "FROM users a, users b, information_warnings c "
                        . "WHERE a.id_user = c.user_receiving_id "
