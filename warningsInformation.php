@@ -8,13 +8,17 @@
    if('GET' == $method){
         $warnings = new WarningsClass();
         $path_splited =  explode("?",explode("=",$_SERVER['REQUEST_URI'])[0]);
-        switch($path_splited[1]){
-            case 'administrator_email':
-                $warnings->getWarningByAdministratorEmail($_GET['administrator_email']);
-                break;
-            case 'next_administrator':
-                $warnings->getTheAdminWithLessWarnings();
-                break;
+        if(!isset($path_splited[1]) || !isset($_GET['administrator_email']) || $_GET['administrator_email'] == ""){
+            echo "Wrong path to webservice";
+        }else{
+            switch($path_splited[1]){
+                case 'administrator_email':
+                    $warnings->getWarningByAdministratorEmail($_GET['administrator_email']);
+                    break;
+                case 'next_administrator':
+                    $warnings->getTheAdminWithLessWarnings();
+                    break;
+            }
         }
    }
    

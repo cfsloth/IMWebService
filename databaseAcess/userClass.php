@@ -34,6 +34,7 @@ class UserClass {
         }
     }
     
+    
     function createUser($user_info){
         $database = new Database();
         $connection = $database->openConection();
