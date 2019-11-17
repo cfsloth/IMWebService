@@ -37,9 +37,7 @@
 	CONSTRAINT fk_information_warning_users_receiving
         FOREIGN KEY (user_receiving_id)
         REFERENCES users(id_user)
-    )
-     * 
-     * 
+    ) 
      */
 
 
