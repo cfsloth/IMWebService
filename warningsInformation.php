@@ -7,7 +7,7 @@
    /*GET REQUEST */
    if('GET' == $method){
         $warnings = new WarningsClass();
-        $path_splited =  explode("?",explode("=",$_SERVER['REQUEST_URI'])[0]);
+        $path_splited = explode("?",explode("=",$_SERVER['REQUEST_URI'])[0]);
         if(!isset($path_splited[1]) || !isset($_GET['administrator_email']) || $_GET['administrator_email'] == ""){
             echo "Wrong path to webservice";
         }else{
